@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Mesa Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.png" type="image/png">
+</head>
+<body>
+    <div id="app">
+        <h1>Juego de Mesa Companion</h1>
+        <div id="dadoSection">
+            <button id="lanzarDado">Lanzar Dado</button>
+            <div id="resultadoDado"></div>
+        </div>
+        <div id="preguntaSection">
+            <select id="colorSeleccionado">
+                <option value="azul">Azul</option>
+                <option value="rojo">Rojo</option>
+                <option value="amarillo">Amarillo</option>
+            </select>
+            <button id="mostrarPregunta">Mostrar Pregunta</button>
+            <p id="pregunta"></p>
+            <button id="mostrarRespuesta">Mostrar Respuesta</button>
+            <p id="respuesta"></p>
+        </div>
+        <div id="temporizadorSection">
+            <input type="number" id="tiempoInput" min="1" max="60" value="30">
+            <button id="iniciarTemporizador">Iniciar Temporizador</button>
+            <div id="tiempoRestante"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

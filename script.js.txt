@@ -1,0 +1,74 @@
+// Datos de preguntas (puedes expandir esto o cargar desde un archivo externo)
+const preguntas = {
+    azul: [
+        { pregunta: "¿Pregunta azul 1?", respuesta: "Respuesta 1" },
+        { pregunta: "¿Pregunta azul 2?", respuesta: "Respuesta 2" },
+    ],
+    rojo: [
+        { pregunta: "¿Pregunta roja 1?", respuesta: "Respuesta 1" },
+        { pregunta: "¿Pregunta roja 2?", respuesta: "Respuesta 2" },
+    ],
+    amarillo: [
+        { pregunta: "¿Pregunta amarilla 1?", respuesta: "Respuesta 1" },
+        { pregunta: "¿Pregunta amarilla 2?", respuesta: "Respuesta 2" },
+    ]
+};
+
+let preguntaActual;
+
+// Función para lanzar el dado
+function lanzarDado() {
+    return Math.floor(Math.random() * 6) + 1;
+}
+
+// Función para seleccionar una pregunta aleatoria
+function seleccionarPregunta(color) {
+    const preguntasColor = preguntas[color];
+    const indiceAleatorio = Math.floor(Math.random() * preguntasColor.length);
+    return preguntasColor[indiceAleatorio];
+}
+
+// Event Listeners
+document.getElementById('lanzarDado').addEventListener('click', () => {
+    const resultado = lanzarDado();
+    document.getElementById('resultadoDado').textContent = `Resultado: ${resultado}`;
+});
+
+document.getElementById('mostrarPregunta').addEventListener('click', () => {
+    const color = document.getElementById('colorSeleccionado').value;
+    preguntaActual = seleccionarPregunta(color);
+    document.getElementById('pregunta').textContent = preguntaActual.pregunta;
+    document.getElementById('respuesta').textContent = '';
+});
+
+document.getElementById('mostrarRespuesta').addEventListener('click', () => {
+    if (preguntaActual) {
+        document.getElementById('respuesta').textContent = `Respuesta: ${preguntaActual.respuesta}`;
+    }
+});
+
+// Temporizador
+let temporizador;
+document.getElementById('iniciarTemporizador').addEventListener('click', () => {
+    const tiempo = parseInt(document.getElementById('tiempoInput').value);
+    let tiempoRestante = tiempo;
+    clearInterval(temporizador);
+    
+    temporizador = setInterval(() => {
+        document.getElementById('tiempoRestante').textContent = `Tiempo: ${tiempoRestante}s`;
+        if (tiempoRestante <= 0) {
+            clearInterval(temporizador);
+            document.getElementById('tiempoRestante').textContent = '¡Tiempo terminado!';
+        }
+        tiempoRestante--;
+    }, 1000);
+});
+
+// Registro del Service Worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(reg => console.log('Service Worker registrado'))
+            .catch(err => console.log('Error al registrar Service Worker', err));
+    });
+}
